@@ -15,7 +15,7 @@ namespace KlipGenerator {
     /// 
     [Microsoft.VisualStudio.Tools.Applications.Runtime.StartupObjectAttribute(0)]
     [global::System.Security.Permissions.PermissionSetAttribute(global::System.Security.Permissions.SecurityAction.Demand, Name="FullTrust")]
-    public sealed partial class ThisAddIn : Microsoft.Office.Tools.AddInBase {
+    public sealed partial class KlipAddIn : Microsoft.Office.Tools.AddInBase {
         
         internal Microsoft.Office.Tools.CustomTaskPaneCollection CustomTaskPanes;
         
@@ -30,7 +30,7 @@ namespace KlipGenerator {
         /// 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        public ThisAddIn(global::Microsoft.Office.Tools.Excel.ApplicationFactory factory, global::System.IServiceProvider serviceProvider) : 
+        public KlipAddIn(global::Microsoft.Office.Tools.Excel.ApplicationFactory factory, global::System.IServiceProvider serviceProvider) : 
                 base(factory, serviceProvider, "AddIn", "ThisAddIn") {
             Globals.Factory = factory;
         }
@@ -42,7 +42,7 @@ namespace KlipGenerator {
         protected override void Initialize() {
             base.Initialize();
             this.Application = this.GetHostItem<Microsoft.Office.Interop.Excel.Application>(typeof(Microsoft.Office.Interop.Excel.Application), "Application");
-            Globals.ThisAddIn = this;
+            Globals.KlipAddIn = this;
             global::System.Windows.Forms.Application.EnableVisualStyles();
             this.InitializeCachedData();
             this.InitializeControls();
@@ -180,19 +180,19 @@ namespace KlipGenerator {
         private Globals() {
         }
         
-        private static ThisAddIn _ThisAddIn;
+        private static KlipAddIn _KlipAddIn;
         
         private static global::Microsoft.Office.Tools.Excel.ApplicationFactory _factory;
         
         private static ThisRibbonCollection _ThisRibbonCollection;
         
-        internal static ThisAddIn ThisAddIn {
+        internal static KlipAddIn KlipAddIn {
             get {
-                return _ThisAddIn;
+                return _KlipAddIn;
             }
             set {
-                if ((_ThisAddIn == null)) {
-                    _ThisAddIn = value;
+                if ((_KlipAddIn == null)) {
+                    _KlipAddIn = value;
                 }
                 else {
                     throw new System.NotSupportedException();

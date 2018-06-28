@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KlipGenerator", "KlipGenerator\KlipGenerator.csproj", "{343ACC2D-2130-4A47-8108-37C03E477443}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility.String", "..\Utility\Utility.String\Utility.String.csproj", "{9F0E47FC-1158-4520-933C-D8701D366847}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility.Excel", "..\Utility\Utility.Excel\Utility.Excel.csproj", "{6FA54F7B-2792-47CE-AF42-72D4B0EC2C6A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{343ACC2D-2130-4A47-8108-37C03E477443}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{343ACC2D-2130-4A47-8108-37C03E477443}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{343ACC2D-2130-4A47-8108-37C03E477443}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F0E47FC-1158-4520-933C-D8701D366847}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F0E47FC-1158-4520-933C-D8701D366847}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F0E47FC-1158-4520-933C-D8701D366847}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F0E47FC-1158-4520-933C-D8701D366847}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FA54F7B-2792-47CE-AF42-72D4B0EC2C6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FA54F7B-2792-47CE-AF42-72D4B0EC2C6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FA54F7B-2792-47CE-AF42-72D4B0EC2C6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FA54F7B-2792-47CE-AF42-72D4B0EC2C6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
