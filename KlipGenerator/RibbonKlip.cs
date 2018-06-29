@@ -23,6 +23,7 @@ namespace KlipGenerator
         private void SetGenerateButtonsEnabled(bool value)
         {
             btnGenerate.Enabled = value;
+            btnGenerateFromSelection.Enabled = value;
         }
 
         private void Ribbon1_Load(object sender, RibbonUIEventArgs e)
@@ -81,7 +82,7 @@ namespace KlipGenerator
                     sh.Columns[col].EntireColumn.NumberFormat = "0";
                 }
                 //coat min max
-                Dictionary<int, Tuple<int, int>> Coating=new Dictionary<int, Tuple<int, int>>();
+                /*Dictionary<int, Tuple<int, int>> Coating=new Dictionary<int, Tuple<int, int>>();
                 Coating[30]=new Tuple<int, int>(20,40);
                 Coating[37] = new Tuple<int, int>(30, 50);
                 Coating[40] = new Tuple<int, int>(38, 70);
@@ -140,9 +141,9 @@ namespace KlipGenerator
                             //just ignore
                         }
                     }
-                }
-
-                KlipSh.ExportToCSV("C:\\Test\\KlipInvTEST.csv");
+                }*/
+                string tms = DateTime.Now.ToString("yyyyMMddHHmmss");
+                KlipSh.ExportToCSV("C:\\KlipFiles",string.Format("KlipInv_MDP{0}.csv",tms));
                 wbKlip.Close(false);
             }
         }
