@@ -70,7 +70,14 @@ namespace KlipGenerator
                 }
                 Excel.Range data = sh.Range[sh.Cells[minRow, 1], sh.Cells[maxRow, colDict.Count]];
                 object[,] matrix = data.Value2;
-                Excel.Worksheet KlipSh=WriteKlipSheet(wbKlip,matrix,colsToPrint,defaults);
+                List<int> hiddenrows = new List<int>();
+                for (int i = minRow;i<= maxRow; i++)
+                {
+                    if (sh.Rows[i].Hidden) {
+                        hiddenrows.Add(i-minRow+matrix.GetLowerBound(0));
+                    }
+                }
+                Excel.Worksheet KlipSh=WriteKlipSheet(wbKlip,matrix,hiddenrows,colsToPrint,defaults);
                 //some hard coded stuff, to be replaced with acutal data
                 Dictionary<string, int> klipColDict = KlipSh.ColumnDictionary();
                 if (klipColDict.TryGetValue("MES_MFCT_ORDER_ID", out col))
@@ -148,21 +155,30 @@ namespace KlipGenerator
             }
         }
 
-        private Excel.Worksheet WriteKlipSheet(Excel.Workbook wbKlip, object[,] matrix, List<int> colsToPrint, List<string> defaults)
+        private Excel.Worksheet WriteKlipSheet(Excel.Workbook wbKlip, object[,] matrix, List<int> hiddenrows, List<int> colsToPrint, List<string> defaults)
         {
             Excel.Worksheet sh = wbKlip.Sheets["Klip Input"];
-            object[,] result = (object[,])Array.CreateInstance(typeof(object), new int[] { matrix.GetUpperBound(0) - matrix.GetLowerBound(0) + 1, colsToPrint.Count }, new int[]{ 1, 1});            
+            object[,] result = (object[,])Array.CreateInstance(typeof(object), new int[] { matrix.GetUpperBound(0) - matrix.GetLowerBound(0) + 1 - hiddenrows.Count, colsToPrint.Count }, new int[]{ 1, 1});
 
+            int minCol= result.GetLowerBound(1);
+            int maxCol= result.GetUpperBound(1);
+
+            int newI = result.GetLowerBound(0);
             for (int i = result.GetLowerBound(0); i <= result.GetUpperBound(0); i++) {
-                for (int j = result.GetLowerBound(1); j <= result.GetUpperBound(1); j++)
+                if (!hiddenrows.Contains(i))
                 {
-                    if (colsToPrint[j- matrix.GetLowerBound(1)] == -1)
+                    for (int j = minCol; j <= maxCol; j++)
                     {
-                        result[i, j] = defaults[j - matrix.GetLowerBound(1)];
+                        if (colsToPrint[j - minCol] == -1)
+                        {
+                            result[newI, j] = defaults[j - minCol];
+                        }
+                        else
+                        {
+                            result[newI, j] = matrix[i, colsToPrint[j - minCol]];
+                        }
                     }
-                    else {
-                        result[i, j] = matrix[i, colsToPrint[j- matrix.GetLowerBound(1)]];
-                    }
+                    newI++;
                 }
             }
             sh.Range[sh.Cells[2,1],sh.Cells[matrix.GetUpperBound(0) - matrix.GetLowerBound(0) + 1+1, colsToPrint.Count]].Value2 = result;
