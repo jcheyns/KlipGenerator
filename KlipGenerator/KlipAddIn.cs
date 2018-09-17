@@ -15,8 +15,6 @@ namespace KlipGenerator
     public partial class KlipAddIn
     {
 
-
-
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
             Application.SheetActivate += Application_SheetActivate;
@@ -25,10 +23,9 @@ namespace KlipGenerator
 
         private void Application_WorkbookActivate(Excel.Workbook Wb)
         {
-            RibbonKlip KlipRibbon = (RibbonKlip)Globals.Ribbons.GetRibbon(typeof(RibbonKlip));
-            String name = Wb.NameWithoutExtension();
+            RibbonKlip KlipRibbon = (RibbonKlip)Globals.Ribbons.GetRibbon(typeof(RibbonKlip));            
             Excel.Worksheet ws = Application.ActiveSheet;
-            string pattern = ConfigurationManager.AppSettings.Get("ActiveNamePattern|" + name);
+            string pattern = ConfigurationManager.AppSettings.Get("ActiveNamePattern|" + Wb.NameWithoutExtension());
             if (!string.IsNullOrEmpty(pattern) && ws!=null && Regex.IsMatch(ws.Name, pattern))
             {
                 KlipRibbon.EnableGeneration = true;
@@ -41,18 +38,29 @@ namespace KlipGenerator
 
         private void Application_SheetActivate(object Sh)
         {
-            RibbonKlip KlipRibbon = (RibbonKlip)Globals.Ribbons.GetRibbon(typeof(RibbonKlip));
             Excel.Worksheet ws = Sh as Excel.Worksheet;
-            Excel.Workbook wb=ws.Parent as Excel.Workbook;
-            String name=wb.NameWithoutExtension();
-            string pattern=ConfigurationManager.AppSettings.Get("ActiveNamePattern|" + name);
+            Excel.Workbook wb = ws.Parent as Excel.Workbook;
+            Application_WorkbookActivate(wb);
+            /*RibbonKlip KlipRibbon = (RibbonKlip)Globals.Ribbons.GetRibbon(typeof(RibbonKlip));
+                       
+            string pattern=ConfigurationManager.AppSettings.Get("ActiveNamePattern|" + wb.NameWithoutExtension());
             if (!string.IsNullOrEmpty(pattern) && Regex.IsMatch(ws.Name, pattern))
             {
                 KlipRibbon.EnableGeneration = true;
             }
             else {
                 KlipRibbon.EnableGeneration = false;
-            }
+            }*/
+        }
+
+        private KlipWriter kw;
+
+        protected override object RequestComAddInAutomationService()
+        {
+            if (kw == null)
+                kw = new KlipWriter();
+
+            return kw;
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)

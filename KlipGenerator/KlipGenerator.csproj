@@ -33,7 +33,7 @@
     <PublishUrl>N:\Production Planning\HDGL Campaign Planning\HDGL Scheduling\Klip\</PublishUrl>
     <InstallUrl />
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.10</ApplicationVersion>
+    <ApplicationVersion>1.0.0.16</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>0</UpdateInterval>
@@ -180,6 +180,7 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="KlipWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
