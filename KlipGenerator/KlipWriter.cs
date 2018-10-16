@@ -45,6 +45,9 @@ namespace KlipGenerator
                         }
                         else
                         {
+                            if (matrix[i, colsToPrint[j - minCol]] !=null && matrix[i, colsToPrint[j - minCol]].ToString().Contains(",")){
+                                matrix[i, colsToPrint[j - minCol]] = matrix[i, colsToPrint[j - minCol]].ToString().Replace(",", ";");
+                            }
                             result[newI, j] = matrix[i, colsToPrint[j - minCol]];
                         }
                     }
@@ -122,7 +125,7 @@ namespace KlipGenerator
                 }
                 
                 string tms = DateTime.Now.ToString("yyyyMMddHHmmss");
-                KlipSh.ExportToCSV("C:\\KlipFiles", string.Format("KlipInv_MDP{0}.csv", tms));
+                KlipSh.ExportToCSV("C:\\KlipFiles", string.Format("KlipIn_MDP{0}.csv", tms));
                 wbKlip.Close(false);
             }
         }
