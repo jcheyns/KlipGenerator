@@ -30,10 +30,10 @@
     <DefineConstants>VSTO40</DefineConstants>
     <IsWebBootstrapper>False</IsWebBootstrapper>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <PublishUrl>N:\Production Planning\HDGL Campaign Planning\HDGL Scheduling\Klip\</PublishUrl>
+    <PublishUrl>\\sr0003\PCCOMMON\Production Planning\HDGL Campaign Planning\HDGL Scheduling\Klip\</PublishUrl>
     <InstallUrl />
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.20</ApplicationVersion>
+    <ApplicationVersion>1.0.0.24</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>0</UpdateInterval>
@@ -93,6 +93,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
     <DefineConstants>$(DefineConstants);DEBUG;TRACE</DefineConstants>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <!--
     This section defines properties that are set when the "Release" configuration is selected.
@@ -125,13 +126,11 @@
     <Reference Include="Accessibility" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +228,10 @@
     <ProjectReference Include="..\..\Utility\Utility.Excel\Utility.Excel.csproj">
       <Project>{6fa54f7b-2792-47ce-af42-72d4b0ec2c6a}</Project>
       <Name>Utility.Excel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Utility\Utility.String\Utility.String.csproj">
+      <Project>{9f0e47fc-1158-4520-933c-d8701d366847}</Project>
+      <Name>Utility.String</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

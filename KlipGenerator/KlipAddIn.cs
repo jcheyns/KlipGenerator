@@ -7,6 +7,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 using Office = Microsoft.Office.Core;
 using Microsoft.Office.Tools.Excel;
 using Utility.Excel;
+using Utility.String;
 using System.Configuration;
 using System.Text.RegularExpressions;
 
@@ -21,11 +22,16 @@ namespace KlipGenerator
             Application.WorkbookActivate += Application_WorkbookActivate;
         }
 
+        /// <summary>
+        /// Depending on the workbookname we will activat the addin.
+        /// </summary>
+        /// <param name="Wb"></param>
         private void Application_WorkbookActivate(Excel.Workbook Wb)
         {
             RibbonKlip KlipRibbon = (RibbonKlip)Globals.Ribbons.GetRibbon(typeof(RibbonKlip));            
             Excel.Worksheet ws = Application.ActiveSheet;
-            string pattern = ConfigurationManager.AppSettings.Get("ActiveNamePattern|" + Wb.NameWithoutExtension());
+            //Is there a pattern for this sheet?
+            string pattern = GetPattern( Wb.NameWithoutExtension());
             if (!string.IsNullOrEmpty(pattern) && ws!=null && Regex.IsMatch(ws.Name, pattern))
             {
                 KlipRibbon.EnableGeneration = true;
@@ -34,6 +40,39 @@ namespace KlipGenerator
             {
                 KlipRibbon.EnableGeneration = false;
             }
+        }
+
+        public string GetPattern(string aWorkbookName) {
+        
+            string patternKey=GetPatternKey( aWorkbookName);
+            if (patternKey != null)
+            {
+                return ConfigurationManager.AppSettings.Get("ActiveNamePattern|" + patternKey);
+            }
+            return null;
+        }
+
+        public string GetPatternKey(string aWorkbookName)
+        {
+            string workbookToActivePatternKey = ConfigurationManager.AppSettings.Get("WorkbookToActivePatternKey");
+            if (string.IsNullOrEmpty(workbookToActivePatternKey))
+            {
+                return null;
+            };
+            string patternKey = aWorkbookName;
+
+            foreach (KeyValuePair<string, string> kvp in workbookToActivePatternKey.ToDict())
+            {
+                if (Regex.IsMatch(aWorkbookName, kvp.Key))
+                {
+                    return kvp.Value;                    
+                }
+            }
+            return null;
+        }
+
+        private void EnableKlipRibbon() {
+
         }
 
         private void Application_SheetActivate(object Sh)
